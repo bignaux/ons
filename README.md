@@ -1,13 +1,26 @@
 # Root & Custom Orange Neva start phone
 
 
-Manufactured by Mobiwire, the phone runs Android 9 Go edition on Mediatek MT6739 chipset.
+Manufactured by Mobiwire, the phone runs Android 9 Go edition on Mediatek MT6739 chipset. It's probably a phone based on mobiwire's [S32 NFC](https://assistance.mobiwire.com/product-sheet?query=S32%20NFC) platform. This documentation can therefore be applied to many other phones, such as the Altice S32 ...
+
+```
+(bootloader) version-baseband: MOLY.LR12A.R2.MP.V91.25.P7
+(bootloader) version-bootloader: k39tv1_bsp_1g-9778ec91576-2021082716411
+```
 
 I found one of these phones in the trash a while back, but I couldn't unlock it at the time. I hope this guide can help some people, so please don't hesitate to give feedback. 
 
 ## mtkclient : enter the BROM mode
 
-Since Orange doesn't supply a stockrom, that's where BROM mode comes in: it lets you perform a wide range of operations as soon as the phone boots up, bypassing all protection even before the bootloader. Use [mtkclient](https://github.com/bkerler/mtkclient) to dump the partitions. For the rest, we'll need the boot, recovery and system partitions. 
+Since Orange doesn't supply a stockrom, that's where BROM mode comes in: it lets you perform a wide range of operations as soon as the phone boots up, bypassing all protection even before the bootloader. Use [mtkclient](https://github.com/bkerler/mtkclient) to dump the partitions. For the rest, we'll need the boot, recovery and system partitions.
+
+
+If you're using the GUI, which is perfectly suited to dump, I recommend launching it from a terminal, so you can observe debug messages easily (sometimes a problem with the USB stack means it doesn't work/no longer works), you should see the following message when the software is up and running: 
+```
+Preloader - Status: Waiting for PreLoader VCOM, please reconnect mobile to brom mode
+```
+
+Then, power on your phone or reboot, mtkclient should catch your phone at pre-loader level, and there you go.
 
 ## Enter in bootloader
 
@@ -108,6 +121,10 @@ p 0 2 folder2
 
 The phone has a NXP pn553 chipset, this could be exploitable via
 https://github.com/Iskuri/PN553-Signature-Bypass to add features.
+
+## Others interestings ressources
+
+* https://www.stevenhoneyman.co.uk/2014/11/mtk-mediatek-debug-cable.html
 
 ## 🪶 AUTHOR
 
